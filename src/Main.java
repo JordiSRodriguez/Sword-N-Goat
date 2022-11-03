@@ -21,10 +21,17 @@ public class Main {
 	public static boolean luchando = false;
 	public static int numEnemigo = 1;
 	public static String[] arrayNombreEnemigo = { "", "Una Piedra ", "Una Cabra ", "Una Gallina ", "La Avalancha de gallinas ", "El Rey Cabra "};
+	
+	private static void limpiar() { //Utilizaremos esta funcion para limpiar el codigo
+        for (int i = 0; i < 1000; i++) { //Se basa de un bucle for que empieza en 0 y acaba en 1000
+            System.out.println("\n");
+        }
+	}
+	
 	/*Como segundo tenemos una linea de System.out.println, donde se le pide a nuestro usuario que introduzca su nombre, 
 	 cuyos datos se guardaran en variable "nombreJugador" */
 	private static void statsJug() {
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" +nombreJugador + "\nVida: " + vidaJug + "\nDano: " + danoJug + "\n");
+		System.out.println(nombreJugador + "\nVida: " + vidaJug + "\nDano: " + danoJug + "\n");
 	}
 	/*Sacamos por consola la vida y el dano que hace el enemigo el cual sacara los datos con otro comando System.out.println */
 	private static void statsEnemigo() {
@@ -67,7 +74,7 @@ public class Main {
 	}
 	/*En el caso de nuestro ataque varia segun el heroe que hayamos elegido*/
 	private static boolean ataque() {
-		System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAtacas al enemigo!");
+		System.out.println("Atacas al enemigo!");
 		vidaEnemigo = vidaEnemigo - danoJug;
 		if (vidaEnemigo <= 0) {
 			System.out.println("Has ganado!");
@@ -89,7 +96,7 @@ public class Main {
 		String movimiento;
 		nombreEnemigo = arrayNombreEnemigo[numEnemigo];
 		//Segun el valor de la variable numEnemigo nos aparecera un enemigo u otro
-		System.out.println("\n\n\n\n\n\n" + nombreEnemigo + "se acerca");
+		System.out.println(nombreEnemigo + "se acerca");
 		crearEnemigo();
 		//Se creara un enemigo
 		luchando = true;
@@ -100,13 +107,14 @@ public class Main {
 				e.printStackTrace();
 			}
 			//Desplegaremos un menu de opciones
-			System.out.println("\n\n\nPulsa 'a' para atacar\nPulsa 'i' para ver stats \nPulsa 'h' para curarte");
+			System.out.println("Pulsa 'a' para atacar\nPulsa 'i' para ver stats \nPulsa 'c' para curarte");
 			movimiento = sc.nextLine();
 			if (movimiento.charAt(0) == 'a') {
+				limpiar();
 				luchando = ataque();
 				//Se podra usar la habilidad de ataque hasta terminar el combate
 				if (luchando == false) {
-					System.out.println("\n\n\n\n\n\nHas acabado el combate");
+					System.out.println("Has acabado el combate");
 					return;
 				}
 				try {
@@ -116,10 +124,12 @@ public class Main {
 				}
 				ataqueEnemigo();
 			} else if (movimiento.charAt(0) == 'i') {
+				limpiar();
 				statsJug();
 				statsEnemigo();
 				//Al usar la opcion de info se desplegaran las estadisticas del jugador y del enemigo
-			} else if (movimiento.charAt(0) == 'h') {
+			} else if (movimiento.charAt(0) == 'c') {
+				limpiar();
 				int x = 5;
 				System.out.println("Te curas...");
 				vidaJug = vidaJug + x;
@@ -142,6 +152,7 @@ public class Main {
 		String nomClase;
 		int num = 2;
 		while (num > 1) {
+			limpiar();
 			System.out.println("Nuestro heroe camina por el prado...");
 			try {
 				Thread.sleep(2000);
@@ -157,43 +168,58 @@ public class Main {
 			System.out.println("Introduce el nombre de tu personaje: ");
 			nombreJugador = sc.nextLine();
 			//Elegimos nuestra clase o detenemos el juego
-			System.out.println("\n\n\nElige tu clase: ");
+			do {
+			limpiar();
+			System.out.println("Elige tu clase: ");
 			System.out.println("Escribe 'g' para guerrero");
 			System.out.println("Escribe 'a' para arquero");
 			System.out.println("Escribe 's' para salir");
 			nomClase = sc.nextLine();
-			//En caso de que se introduzca algo distinto a esas opciones se repetira el menu hasta que se elija una opcion correcta
-			while (nomClase.charAt(0) != 'g' && nomClase.charAt(0) != 'a' && nomClase.charAt(0) != 's') {
-				System.out.println("Escribe 'g' para guerrero");
-				System.out.println("Escribe 'a' para arquero");
-				System.out.println("Escribe 's' para salir");
-				nomClase = sc.nextLine();
 			}
+			//En caso de que se introduzca algo distinto a esas opciones se repetira el menu hasta que se elija una opcion correcta
+			while (nomClase.charAt(0) != 'g' && nomClase.charAt(0) != 'a' && nomClase.charAt(0) != 's');
+			
+			limpiar();
 			if (nomClase.charAt(0) == 'g') {
 				claseGuerrero();
 				statsJug();
-			}
-			if (nomClase.charAt(0) == 'a') {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} else if (nomClase.charAt(0) == 'a') {
 				claseArquero();
-				statsJug();
-			}
-			//Cada clase tiene distintas stats que se desplegaran al elegirla
-			if (nomClase.charAt(0) == 's') {
+				statsJug(); //Cada clase tiene distintas stats que se desplegaran al elegirla
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} else if (nomClase.charAt(0) == 's') {
 				System.out.println("TE HAS RENDIDO");
 				System.exit(0);
 			}
 			//Al rendirnos se detendra el codigo
 			
+			limpiar();
 			for (int enemigoActual = 1; enemigoActual <= 5; enemigoActual++) {
 				while (numEnemigo == enemigoActual) {
 					combate();
 					numEnemigo++;
 				}
+				limpiar();
 				if (numEnemigo >= 6) {
 					System.out.println("Felicidades, te has pasado el juego! :)");
 					System.exit(0);
-				}
+				} else {
 				System.out.println("Zona despejada, continua\n");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				}
 			}
 			//Este bucle for guardara el enemigo en el que nos encontramos y hara que el sistema de enemigos funcione continuamente hasta eliminarlos a todos
 		}

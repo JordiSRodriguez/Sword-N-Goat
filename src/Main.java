@@ -210,7 +210,7 @@ public class Main {
 				}
 				limpiar();
 				if (numEnemigo >= 6) {
-					System.out.println("Felicidades, te has pasado el juego! :)");
+					System.out.println("Felicidades, te has pasado el juego! :) \nDev: Jordi\nQA: Andy\nPM: Stelian");
 					System.exit(0);
 				} else {
 				System.out.println("Zona despejada, continua\n");
